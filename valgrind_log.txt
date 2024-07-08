@@ -1,0 +1,23 @@
+==7093== Memcheck, a memory error detector
+==7093== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==7093== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==7093== Command: ./main -v 5 -e 7 -s 42
+==7093== Parent PID: 7092
+==7093== 
+### unhandled dwarf2 abbrev form code 0x25
+### unhandled dwarf2 abbrev form code 0x25
+### unhandled dwarf2 abbrev form code 0x25
+### unhandled dwarf2 abbrev form code 0x23
+### unhandled dwarf2 abbrev form code 0x25
+### unhandled dwarf2 abbrev form code 0x25
+### unhandled dwarf2 abbrev form code 0x25
+### unhandled dwarf2 abbrev form code 0x23
+==7093== Valgrind: debuginfo reader: ensure_valid failed:
+==7093== Valgrind:   during call to ML_(img_get)
+==7093== Valgrind:   request for range [111061660, +4) exceeds
+==7093== Valgrind:   valid image size of 239136 for image:
+==7093== Valgrind:   "/home/hadarfro/Desktop/OS---EX3/OS---EX4/main"
+==7093== 
+==7093== Valgrind: debuginfo reader: Possibly corrupted debuginfo file.
+==7093== Valgrind: I can't recover.  Giving up.  Sorry.
+==7093== 
