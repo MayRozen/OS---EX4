@@ -53,6 +53,20 @@ profile: clean $(EXEC)
 valgrind: $(EXEC)
 	valgrind $(VALFLAGS) ./$(EXEC) -v 5 -e 7 -s 42
 
+# Generate call graph with Valgrind's callgrind tool
+callgrind: $(EXEC)
+	valgrind --tool=callgrind ./$(EXEC)
+	kcachegrind callgrind.out.*
+
+# # Step 1: Build the executable
+# make all
+
+# # Step 2: Run callgrind to generate the call graph
+# make callgrind
+
+# # Step 3: View the call graph with kcachegrind (run this command in the terminal)
+# kcachegrind callgrind.out.*
+
 # Clean up generated files
 clean:
 	rm -f $(OBJ) $(EXEC) gmon.out *.gcda *.gcno *.gcov coverage.info
