@@ -38,7 +38,7 @@ int main(int argc, char* argv[]) {
     srand((unsigned int)seed);
     Graph graph(vertices);
 
-    for (size_t i = 0; i < edges; i++) {
+    for (size_t i = 0; i < (size_t)edges; i++) {
         size_t u = (size_t)(rand() % vertices);
         size_t v = (size_t)(rand() % vertices);
         graph.addEdge(u, v);

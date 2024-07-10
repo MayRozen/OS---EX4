@@ -16,14 +16,14 @@ bool Graph::isConnected() {
     size_t i;
 
     // Find a vertex with a non-zero degree
-    for (i = 0; i < vertices; i++) {
+    for (i = 0; i < (size_t)vertices; i++) {
         if (!adjList[i].empty()) {
             break;
         }
     }
 
     // If no edges in the graph, return true
-    if (i == vertices) {
+    if (i == (size_t)vertices) {
         return true;
     }
 
@@ -31,7 +31,7 @@ bool Graph::isConnected() {
     DFS(i, visited);
 
     // Check if all vertices with non-zero degree are visited
-    for (i = 0; i < vertices; i++) {
+    for (i = 0; i < (size_t)vertices; i++) {
         if (!adjList[i].empty() && !visited[i]) {
             return false;
         }
@@ -43,7 +43,7 @@ bool Graph::isConnected() {
 void Graph::DFS(size_t v, vector<bool>& visited) {
     visited[v] = true;
 
-    for (size_t i = 0; i < vertices;i++) {
+    for (size_t i = 0; i < (size_t)vertices;i++) {
         if (!visited[i]) {
             DFS(i, visited);
         }
@@ -52,7 +52,7 @@ void Graph::DFS(size_t v, vector<bool>& visited) {
 
 int Graph::findStartVertex() {
     int start = 0;
-    for (size_t i = 0; i < vertices; i++) {
+    for (size_t i = 0; i < (size_t)vertices; i++) {
         if (adjList[i].size() % 2 != 0) {
             return i;
         }
@@ -66,7 +66,7 @@ bool Graph::isEulerian() {
     }
 
     int odd = 0;
-    for (size_t i = 0; i < vertices; i++) {
+    for (size_t i = 0; i < (size_t)vertices; i++) {
         if (adjList[i].size() % 2 != 0) {
             odd++;
         }
@@ -92,7 +92,7 @@ void Graph::findEulerCircuit() {
         size_t v = (size_t)stack.back();
 
         bool found = false;
-        for (size_t i = 0;i < vertices ;i++) {
+        for (size_t i = 0;i < (size_t)vertices ;i++) {
             if (!edgeVisited[{v, i}]) {
                 edgeVisited[{v, i}] = edgeVisited[{i, v}] = true;
                 stack.push_back(i);
@@ -114,9 +114,9 @@ void Graph::findEulerCircuit() {
 }
 
 void Graph::printGraph() {
-    for (size_t i = 0; i < vertices; i++) {
+    for (size_t i = 0; i < (size_t)vertices; i++) {
         cout << i << " -> ";
-        for (size_t j = 0;j < vertices ;j++) {
+        for (size_t j = 0;j < (size_t)vertices ;j++) {
             cout << adjList[i][j] << " ";
         }
         cout << endl;

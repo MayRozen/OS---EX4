@@ -1,6 +1,6 @@
 # Compiler
-CXX = clang++
-CXXFLAGS = -std=c++11 -Wall -Werror -Wsign-conversion -g
+CXX = gcc
+CXXFLAGS = -std=c++11 -Wall -Werror -Wsign-conversion -g -no-pie
 
 # Coverage flags
 COVFLAGS = -fprofile-arcs -ftest-coverage
