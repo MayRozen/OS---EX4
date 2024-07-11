@@ -1,0 +1,65 @@
+==11300== Helgrind, a thread error detector
+==11300== Copyright (C) 2007-2017, and GNU GPL'd, by OpenWorks LLP et al.
+==11300== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==11300== Command: ./abs4race
+==11300== Parent PID: 3457
+==11300== 
+==11300== ---Thread-Announcement------------------------------------------
+==11300== 
+==11300== Thread #4 was created
+==11300==    at 0x49999F3: clone (clone.S:76)
+==11300==    by 0x499A8EE: __clone_internal (clone-internal.c:83)
+==11300==    by 0x49086D8: create_thread (pthread_create.c:295)
+==11300==    by 0x49091FF: pthread_create@@GLIBC_2.34 (pthread_create.c:828)
+==11300==    by 0x4853767: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==11300==    by 0x4012B0: main (in /home/hadarfro/Desktop/OS---EX4/abs4race)
+==11300== 
+==11300== ---Thread-Announcement------------------------------------------
+==11300== 
+==11300== Thread #3 was created
+==11300==    at 0x49999F3: clone (clone.S:76)
+==11300==    by 0x499A8EE: __clone_internal (clone-internal.c:83)
+==11300==    by 0x49086D8: create_thread (pthread_create.c:295)
+==11300==    by 0x49091FF: pthread_create@@GLIBC_2.34 (pthread_create.c:828)
+==11300==    by 0x4853767: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==11300==    by 0x4012B0: main (in /home/hadarfro/Desktop/OS---EX4/abs4race)
+==11300== 
+==11300== ----------------------------------------------------------------
+==11300== 
+==11300== Possible data race during read of size 8 at 0x404060 by thread #4
+==11300== Locks held: none
+==11300==    at 0x4011F8: square (in /home/hadarfro/Desktop/OS---EX4/abs4race)
+==11300==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==11300==    by 0x4908AC2: start_thread (pthread_create.c:442)
+==11300==    by 0x4999A03: clone (clone.S:100)
+==11300== 
+==11300== This conflicts with a previous write of size 8 by thread #3
+==11300== Locks held: none
+==11300==    at 0x401202: square (in /home/hadarfro/Desktop/OS---EX4/abs4race)
+==11300==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==11300==    by 0x4908AC2: start_thread (pthread_create.c:442)
+==11300==    by 0x4999A03: clone (clone.S:100)
+==11300==  Address 0x404060 is 0 bytes inside data symbol "accum"
+==11300== 
+==11300== ----------------------------------------------------------------
+==11300== 
+==11300== Possible data race during write of size 8 at 0x404060 by thread #4
+==11300== Locks held: none
+==11300==    at 0x401202: square (in /home/hadarfro/Desktop/OS---EX4/abs4race)
+==11300==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==11300==    by 0x4908AC2: start_thread (pthread_create.c:442)
+==11300==    by 0x4999A03: clone (clone.S:100)
+==11300== 
+==11300== This conflicts with a previous write of size 8 by thread #3
+==11300== Locks held: none
+==11300==    at 0x401202: square (in /home/hadarfro/Desktop/OS---EX4/abs4race)
+==11300==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==11300==    by 0x4908AC2: start_thread (pthread_create.c:442)
+==11300==    by 0x4999A03: clone (clone.S:100)
+==11300==  Address 0x404060 is 0 bytes inside data symbol "accum"
+==11300== 
+==11300== 
+==11300== Use --history-level=approx or =none to gain increased speed, at
+==11300== the cost of reduced accuracy of conflicting-access information
+==11300== For lists of detected and suppressed errors, rerun with: -s
+==11300== ERROR SUMMARY: 36 errors from 2 contexts (suppressed: 344 from 20)

@@ -12,7 +12,7 @@ PROFFLAGS = -pg
 VALFLAGS = --leak-check=full --log-file="valgrind_log.txt"
 
 # Source files
-SRC = main.cpp Graph.cpp
+SRC = main.cpp Graph.cpp 
 
 # Object files
 OBJ = $(SRC:.cpp=.o)
@@ -21,15 +21,28 @@ OBJ = $(SRC:.cpp=.o)
 EXEC = main
 
 # Default target
-all: $(EXEC)
+all: $(EXEC) singletone hello abs4race
 
 # Build the executable
 $(EXEC): $(OBJ)
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
+singletone: $ singletone.o
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
+abs4race: $ abs4race.o
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
+hello: $ hello.o
+	$(CXX) $(CFLAGS) -o $@ $^
+
 # Compile source files
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# Rule to build object files
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 # Run the program
 run: $(EXEC)
@@ -59,7 +72,7 @@ callgrind: $(EXEC)
 
 # Clean up generated files
 clean:
-	rm -f $(OBJ) $(EXEC) gmon.out *.gcda *.gcno *.gcov coverage.info
+	rm -f $(OBJ) $(EXEC) hello.o hello singletone singletone.o abs4race.o abs4race gmon.out *.gcda *.gcno *.gcov coverage.info 
 	rm -rf out
 	rm -f valgrind_log.txt callgrind.out.*
 
