@@ -1,5 +1,5 @@
 # Compiler
-CXX = gcc
+CXX = g++
 CXXFLAGS = -std=c++11 -Wall -Werror -Wsign-conversion -g -no-pie
 
 # Coverage flags
@@ -55,17 +55,7 @@ valgrind: $(EXEC)
 
 # Generate call graph with Valgrind's callgrind tool
 callgrind: $(EXEC)
-	valgrind --tool=callgrind ./$(EXEC)
-	kcachegrind callgrind.out.*
-
-# # Step 1: Build the executable
-# make all
-
-# # Step 2: Run callgrind to generate the call graph
-# make callgrind
-
-# # Step 3: View the call graph with kcachegrind (run this command in the terminal)
-# kcachegrind callgrind.out.*
+	valgrind --tool=callgrind ./$(EXEC) -v 5 -e 7 -s 42
 
 # Clean up generated files
 clean:
@@ -73,4 +63,4 @@ clean:
 	rm -rf out
 	rm -f valgrind_log.txt callgrind.out.*
 
-.PHONY: all run coverage profile valgrind clean
+.PHONY: all run coverage profile valgrind callgrind clean
