@@ -1,0 +1,56 @@
+==6285== Memcheck, a memory error detector
+==6285== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==6285== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==6285== Command: ./main -v 5 -e 7 -s 42
+==6285== Parent PID: 6284
+==6285== 
+==6285== Conditional jump or move depends on uninitialised value(s)
+==6285==    at 0x499AA4E: std::ostreambuf_iterator<char, std::char_traits<char> > std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::_M_insert_int<long>(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, long) const (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==6285==    by 0x49A9119: std::ostream& std::ostream::_M_insert<long>(long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==6285==    by 0x402415: Graph::printGraph() (Graph.cpp:120)
+==6285==    by 0x40160F: main (main.cpp:47)
+==6285== 
+==6285== Use of uninitialised value of size 8
+==6285==    at 0x499A92B: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==6285==    by 0x499AA78: std::ostreambuf_iterator<char, std::char_traits<char> > std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::_M_insert_int<long>(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, long) const (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==6285==    by 0x49A9119: std::ostream& std::ostream::_M_insert<long>(long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==6285==    by 0x402415: Graph::printGraph() (Graph.cpp:120)
+==6285==    by 0x40160F: main (main.cpp:47)
+==6285== 
+==6285== Conditional jump or move depends on uninitialised value(s)
+==6285==    at 0x499A93D: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==6285==    by 0x499AA78: std::ostreambuf_iterator<char, std::char_traits<char> > std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::_M_insert_int<long>(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, long) const (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==6285==    by 0x49A9119: std::ostream& std::ostream::_M_insert<long>(long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==6285==    by 0x402415: Graph::printGraph() (Graph.cpp:120)
+==6285==    by 0x40160F: main (main.cpp:47)
+==6285== 
+==6285== Conditional jump or move depends on uninitialised value(s)
+==6285==    at 0x499AAAE: std::ostreambuf_iterator<char, std::char_traits<char> > std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::_M_insert_int<long>(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, long) const (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==6285==    by 0x49A9119: std::ostream& std::ostream::_M_insert<long>(long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==6285==    by 0x402415: Graph::printGraph() (Graph.cpp:120)
+==6285==    by 0x40160F: main (main.cpp:47)
+==6285== 
+==6285== Invalid read of size 4
+==6285==    at 0x402403: Graph::printGraph() (Graph.cpp:120)
+==6285==    by 0x40160F: main (main.cpp:47)
+==6285==  Address 0x4ddef80 is 0 bytes after a block of size 16 alloc'd
+==6285==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6285==    by 0x4068E1: __gnu_cxx::new_allocator<int>::allocate(unsigned long, void const*) (new_allocator.h:127)
+==6285==    by 0x405D63: std::allocator_traits<std::allocator<int> >::allocate(std::allocator<int>&, unsigned long) (alloc_traits.h:464)
+==6285==    by 0x404FDF: std::_Vector_base<int, std::allocator<int> >::_M_allocate(unsigned long) (stl_vector.h:346)
+==6285==    by 0x40487E: void std::vector<int, std::allocator<int> >::_M_realloc_insert<int>(__gnu_cxx::__normal_iterator<int*, std::vector<int, std::allocator<int> > >, int&&) (vector.tcc:440)
+==6285==    by 0x403879: void std::vector<int, std::allocator<int> >::emplace_back<int>(int&&) (vector.tcc:121)
+==6285==    by 0x402BAD: std::vector<int, std::allocator<int> >::push_back(int&&) (stl_vector.h:1204)
+==6285==    by 0x401C20: Graph::addEdge(unsigned long, unsigned long) (Graph.cpp:10)
+==6285==    by 0x4015F3: main (main.cpp:44)
+==6285== 
+==6285== 
+==6285== HEAP SUMMARY:
+==6285==     in use at exit: 0 bytes in 0 blocks
+==6285==   total heap usage: 17 allocs, 17 frees, 73,964 bytes allocated
+==6285== 
+==6285== All heap blocks were freed -- no leaks are possible
+==6285== 
+==6285== Use --track-origins=yes to see where uninitialised values come from
+==6285== For lists of detected and suppressed errors, rerun with: -s
+==6285== ERROR SUMMARY: 17 errors from 5 contexts (suppressed: 0 from 0)
