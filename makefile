@@ -66,9 +66,14 @@ profile: clean $(EXEC)
 valgrind: $(EXEC)
 	valgrind $(VALFLAGS) ./$(EXEC) -v 5 -e 7 -s 42
 
+# Memory checking with Valgrind (memcheck)
+valgrind_memcheck: $(EXEC)
+	valgrind $(VALFLAGS) ./$(EXEC) -v 5 -e 7 -s 42
+
 # Generate call graph with Valgrind's callgrind tool
-callgrind: $(EXEC)
-	valgrind --tool=callgrind ./$(EXEC) -v 5 -e 7 -s 42
+valgrind_callgrind: $(EXEC)
+	valgrind --tool=callgrind --callgrind-out-file=custom_callgrind.out ./$(EXEC) -v 5 -e 7 -s 42
+	kcachegrind custom_callgrind.out
 
 # Clean up generated files
 clean:
