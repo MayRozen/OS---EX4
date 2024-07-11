@@ -1,0 +1,125 @@
+        -:    0:Source:Graph.cpp
+        -:    1:// Graph.cpp
+        -:    2:#include "Graph.hpp"
+        -:    3:
+        1:    4:Graph::Graph(int myVertices) {
+        1:    5:    vertices = myVertices;
+        1:    6:    adjList.resize((size_t)myVertices);
+        1:    7:}
+        -:    8:
+        7:    9:void Graph::addEdge(size_t u, size_t v) {
+        7:   10:    adjList[u].push_back(v);
+        7:   11:    adjList[v].push_back(u); // Since the graph is undirected
+        7:   12:}
+        -:   13:
+        1:   14:bool Graph::isConnected() {
+        1:   15:    vector<bool> visited((size_t)vertices, false);
+        -:   16:    size_t i;
+        -:   17:
+        -:   18:    // Find a vertex with a non-zero degree
+       1*:   19:    for (i = 0; i < (size_t)vertices; i++) {
+        1:   20:        if (!adjList[i].empty()) {
+        1:   21:            break;
+        -:   22:        }
+        -:   23:    }
+        -:   24:
+        -:   25:    // If no edges in the graph, return true
+        1:   26:    if (i == (size_t)vertices) {
+    #####:   27:        return true;
+        -:   28:    }
+        -:   29:
+        -:   30:    // Start DFS traversal from a vertex with a non-zero degree
+        1:   31:    DFS(i, visited);
+        -:   32:
+        -:   33:    // Check if all vertices with non-zero degree are visited
+        6:   34:    for (i = 0; i < (size_t)vertices; i++) {
+       5*:   35:        if (!adjList[i].empty() && !visited[i]) {
+    #####:   36:            return false;
+        -:   37:        }
+        -:   38:    }
+        -:   39:
+        1:   40:    return true;
+        1:   41:}
+        -:   42:
+        5:   43:void Graph::DFS(size_t v, vector<bool>& visited) {
+        5:   44:    visited[v] = true;
+        -:   45:
+       30:   46:    for (size_t i = 0; i < (size_t)vertices;i++) {
+       25:   47:        if (!visited[i]) {
+        4:   48:            DFS(i, visited);
+        -:   49:        }
+        -:   50:    }
+        5:   51:}
+        -:   52:
+    #####:   53:int Graph::findStartVertex() {
+    #####:   54:    int start = 0;
+    #####:   55:    for (size_t i = 0; i < (size_t)vertices; i++) {
+    #####:   56:        if (adjList[i].size() % 2 != 0) {
+    #####:   57:            return i;
+        -:   58:        }
+        -:   59:    }
+    #####:   60:    return start;
+        -:   61:}
+        -:   62:
+        1:   63:bool Graph::isEulerian() {
+        1:   64:    if (!isConnected()) {
+    #####:   65:        return false;
+        -:   66:    }
+        -:   67:
+        1:   68:    int odd = 0;
+        6:   69:    for (size_t i = 0; i < (size_t)vertices; i++) {
+        5:   70:        if (adjList[i].size() % 2 != 0) {
+        2:   71:            odd++;
+        -:   72:        }
+        -:   73:    }
+        -:   74:
+        1:   75:    return (odd == 0);
+        -:   76:}
+        -:   77:
+        1:   78:void Graph::findEulerCircuit() {
+        1:   79:    if (!isEulerian()) {
+        1:   80:        cout << "The graph does not have an Eulerian circuit." << endl;
+        1:   81:        return;
+        -:   82:    }
+        -:   83:
+    #####:   84:    list<int> circuit;
+    #####:   85:    map<pair<int, int>, bool> edgeVisited;
+    #####:   86:    vector<int> stack;
+    #####:   87:    int startVertex = findStartVertex();
+        -:   88:
+    #####:   89:    stack.push_back(startVertex);
+        -:   90:
+    #####:   91:    while (!stack.empty()) {
+    #####:   92:        size_t v = (size_t)stack.back();
+        -:   93:
+    #####:   94:        bool found = false;
+    #####:   95:        for (size_t i = 0;i < (size_t)vertices ;i++) {
+    #####:   96:            if (!edgeVisited[{v, i}]) {
+    #####:   97:                edgeVisited[{v, i}] = edgeVisited[{i, v}] = true;
+    #####:   98:                stack.push_back(i);
+    #####:   99:                found = true;
+    #####:  100:                break;
+        -:  101:            }
+        -:  102:        }
+        -:  103:
+    #####:  104:        if (!found) {
+    #####:  105:            circuit.push_front(v);
+    #####:  106:            stack.pop_back();
+        -:  107:        }
+        -:  108:    }
+        -:  109:
+    #####:  110:    for (int vertex : circuit) {
+    #####:  111:        cout << vertex << " ";
+        -:  112:    }
+    #####:  113:    cout << endl;
+    #####:  114:}
+        -:  115:
+        1:  116:void Graph::printGraph() {
+        6:  117:    for (size_t i = 0; i < (size_t)vertices; i++) {
+        5:  118:        cout << i << " -> ";
+       30:  119:        for (size_t j = 0;j < (size_t)vertices ;j++) {
+       25:  120:            cout << adjList[i][j] << " ";
+        -:  121:        }
+        5:  122:        cout << endl;
+        -:  123:    }
+        1:  124:}

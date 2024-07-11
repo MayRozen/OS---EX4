@@ -1,0 +1,52 @@
+        -:    0:Source:main.cpp
+        -:    1:#include <iostream>
+        -:    2:#include <cstdlib>
+        -:    3:#include <ctime>
+        -:    4:#include <unistd.h>
+        -:    5:#include "Graph.hpp"
+        -:    6:
+        -:    7:using namespace std;
+        -:    8:
+    #####:    9:void printUsage() {
+    #####:   10:    cout << "Usage: ./graph -v <vertices> -e <edges> -s <seed>" << endl;
+    #####:   11:}
+        -:   12:
+        1:   13:int main(int argc, char* argv[]) {
+        1:   14:    int vertices = 0, edges = 0, seed = time(0);
+        -:   15:    int opt;
+        4:   16:    while ((opt = getopt(argc, argv, "v:e:s:")) != -1) {
+        3:   17:        switch (opt) {
+        1:   18:            case 'v':
+        1:   19:                vertices = atoi(optarg);
+        1:   20:                break;
+        1:   21:            case 'e':
+        1:   22:                edges = atoi(optarg);
+        1:   23:                break;
+        1:   24:            case 's':
+        1:   25:                seed = atoi(optarg);
+        1:   26:                break;
+    #####:   27:            default:
+    #####:   28:                printUsage();
+    #####:   29:                return EXIT_FAILURE;
+        -:   30:        }
+        -:   31:    }
+        -:   32:
+        1:   33:    if (vertices <= 0 || edges <= 0) {
+    #####:   34:        printUsage();
+    #####:   35:        return EXIT_FAILURE;
+        -:   36:    }
+        -:   37:
+        1:   38:    srand((unsigned int)seed);
+        1:   39:    Graph graph(vertices);
+        -:   40:
+        8:   41:    for (size_t i = 0; i < (size_t)edges; i++) {
+        7:   42:        size_t u = (size_t)(rand() % vertices);
+        7:   43:        size_t v = (size_t)(rand() % vertices);
+        7:   44:        graph.addEdge(u, v);
+        -:   45:    }
+        -:   46:
+        1:   47:    graph.printGraph();
+        1:   48:    graph.findEulerCircuit();
+        -:   49:
+        1:   50:    return 0;
+        -:   51:}
